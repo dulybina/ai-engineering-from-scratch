@@ -40,5 +40,6 @@ Ship an AI product. Build goal: not sure yet; decide along the way.
 | Date | Lesson | Quiz | Note |
 |------|--------|------|------|
 | 2026-10-26 | 00-setup-and-tooling/01-dev-environment | 3/3 | Created .venv with uv (Python 3.12.15, numpy 2.5.4); thought uv picks the latest Python, but it picked a managed 3.12 over system 3.14 |
+| 2026-10-26 | 00-setup-and-tooling/02-git-and-collaboration | 3/3 | Committed and pushed LEARNING.md; set up SSH after the HTTPS push failed; expected a merge commit where git did a fast-forward |
 
 ## Review queue
