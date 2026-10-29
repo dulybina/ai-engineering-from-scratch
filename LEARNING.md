@@ -44,6 +44,8 @@ Ship an AI product. Build goal: not sure yet; decide along the way.
 | 2026-10-26 | 00-setup-and-tooling/03-gpu-setup-and-cloud | 1/3 | Installed CPU torch 2.14.1; 4000x4000 matmul took ~3.4s (~37 GFLOP/s) vs 1s guessed; got the fp16 VRAM math right; missed nvidia-smi vs torch API and synchronize() (async GPU) |
 | 2026-10-27 | 00-setup-and-tooling/04-apis-and-keys | 3/3 | No key yet; ran the fake-key call and read the 401 authentication_error body; warm-up: confused VRAM with swap, but got synchronize() right this time |
 | 2026-10-27 | 00-setup-and-tooling/05-jupyter-notebooks | 3/3 | Ran JupyterLab; %timeit gave list 356 ms vs numpy 3.37 ms (~106x, guessed 10x); thought numpy's speed came from parallel batches, but it's mostly compiled C loops plus SIMD; nailed the 40-vs-20 out-of-order trap |
+| 2026-10-29 | 00-setup-and-tooling/06-python-environments | 2/3 | Built ~/my-ai-project with uv (19 locked packages from 2 direct deps); predicted the lockfile rebuild correctly; guessed stdlib urllib/json would show up as deps; missed the CUDA-version-mismatch question (thought venvs block GPU access) |
 
 ## Review queue
 - 00-setup-and-tooling/03-gpu-setup-and-cloud: nvidia-smi checks the driver/GPU (torch.cuda.is_available() checks PyTorch); VRAM is GPU memory, not swap (synchronize() now recalled correctly)
+- 00-setup-and-tooling/06-python-environments: 'CUDA not available' with an NVIDIA GPU usually means torch.version.cuda is newer than the driver's CUDA shown by nvidia-smi; venvs do not block GPU access
