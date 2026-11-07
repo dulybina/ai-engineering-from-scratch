@@ -14,7 +14,7 @@ Ship an AI product. Build goal: not sure yet; decide along the way.
 ## Path
 | Phase | Name | Status | Est. hours |
 |-------|------|--------|------------|
-| 0 | Setup & Tooling | Do | 16 |
+| 0 | Setup & Tooling | Done | 16 |
 | 1 | Math Foundations | Do | 23 |
 | 2 | ML Fundamentals | Do | 26 |
 | 3 | Deep Learning Core | Do | 15 |
@@ -51,9 +51,11 @@ Ship an AI product. Build goal: not sure yet; decide along the way.
 | 2026-11-04 | 00-setup-and-tooling/10-terminal-and-shell | 3/3 | Thought '> train.log' captures the traceback (stderr goes to screen; saw it in ~/shell-lab); read 'tail -3' as picking values across the file; thought a '&' job on an SSH box survives a dropped connection (SIGHUP demo: plain died, nohup lived); installed tmux, hit Ctrl+B ' instead of " (Shift+'), then 3-pane session survived detach; rsync 25 B vs 10 MB predicted right; final plan missed 2>&1; warm-up fixed streaming |
 | 2026-11-04 | 00-setup-and-tooling/11-linux-for-ai | 3/3 | Read cores/RAM from /proc (4 logical CPUs, 15.5 GB; /proc/meminfo is 0 bytes on disk); decoded 644 and 600 right (own ssh key is 600); saw run.sh 'Permission denied' at 664; predicted ~/.cache/uv as biggest at 1.4G exactly; learned uv hard-links cache into .venv (73M extra when measured together); knew Linux is case-sensitive; warm-up fixed SIGHUP |
 | 2026-11-05 | 00-setup-and-tooling/12-debugging-and-profiling | 3/3 | Sorted crash vs silent bugs right (shape crashes; shuffled labels and lr=1.0 train silently); spotted unnormalized pixels via max=255; predicted log(0)=inf (it's -inf) and log(-1)=NaN; saw NaN spread to every layer's grads, so detect_nan finds when, breakpoint finds where; predicted data loading dominates (91% at num_workers=0, epoch 0.60s -> 0.41s with 3 workers on 4 CPUs) |
+| 2026-11-06 | 00-setup-and-tooling/13-python-for-ai-engineering | 1/2 | Missed [[0]*3]*2 aliasing (both rows change) and counted range(2) as 3 rows; predicted used-up generator 3/0/0 right but guessed loss logs 0 (it repeats the old loss, prints None, or crashes); thought a check inside a generator causes an infinite loop (it runs only on first next()); ranked map < index < zip right, NumPy 283x; broadcasting 3/3; quiz: picked per-mini-batch stats for standardization |
 
 ## Review queue
 - 00-setup-and-tooling/03-gpu-setup-and-cloud: nvidia-smi checks the driver/GPU (torch.cuda.is_available() checks PyTorch); VRAM is GPU memory, not swap (synchronize() now recalled correctly)
 - 00-setup-and-tooling/06-python-environments: 'CUDA not available' with an NVIDIA GPU usually means torch.version.cuda is newer than the driver's CUDA shown by nvidia-smi; venvs do not block GPU access
 - 00-setup-and-tooling/07-docker-for-ai: NVIDIA Container Toolkit exposes host GPUs/driver to containers via --gpus; it does not install drivers in the container (driver = host kernel module, CUDA toolkit = image) (recalled correctly in 08 warm-up)
 - 00-setup-and-tooling/09-data-management: streaming=True gives an IterableDataset read row by row on demand without downloading the full dataset (about size, not speed; no ds[i] or len) (recalled correctly in 10 warm-up)
+- 00-setup-and-tooling/13-python-for-ai-engineering: standardization stats come from the training split only and are reused on test (not per mini-batch, not test); [[0]*3]*2 shares one row object
